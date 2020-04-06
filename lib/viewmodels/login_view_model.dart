@@ -10,8 +10,9 @@ class LoginViewModel extends BaseViewModel
   {
     setBusy(true); 
     //notify the login screen to show progress
-    var response =  await authenticationService.login(userId);
+    bool response =  await authenticationService.login(userId);
     setBusy(false);
+    return response;
     //notify the login screen to stop showing progress
   }
 }

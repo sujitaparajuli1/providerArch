@@ -6,11 +6,32 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: backgroundColor,
-        body: Center(
-          child: Text('Home View'),
-          
-          )
-          );
-  }
+    appBar: AppBar(
+      title: Text("Awesome places"),
+      centerTitle: true,
+      actions: <Widget>[
+        _buildSyncIcon(context),
+                _buildThemeIcon(context),
+              ],
+            ),
+                backgroundColor: backgroundColor,
+                body: Center(
+                  child: Text('Home View'),
+                  
+                  )
+                  );
+          }
+        
+   Widget _buildSyncIcon(BuildContext context) {
+    return IconButton(
+      icon: Icon(Icons.sync),
+       onPressed:(){},
+       );
+   }
+
+   Widget _buildThemeIcon(BuildContext context) {
+     return IconButton(icon: Icon(Icons.theaters), 
+     onPressed: (){},
+     );
+   }
 }

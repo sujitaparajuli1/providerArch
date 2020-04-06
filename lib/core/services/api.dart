@@ -10,11 +10,23 @@ class Api {
   var client = new http.Client();
 
   Future<User> getUserProfile(int userId) async {
-    // Get user profile for id
+    try{
+// Get user profile for id
     var response = await client.get('$endpoint/users/$userId');
 
-    // Convert and return
+    print("Response ${response.body}");
+    final data=jsonDecode(response.body);
+    if (data["id"]==null){
+      return null;
+    }
+    //convert and return
     return User.fromJson(json.decode(response.body));
+    }
+    catch(e)
+    {
+print("Login exception $e");
+return null;
+    }
   }
  
 }

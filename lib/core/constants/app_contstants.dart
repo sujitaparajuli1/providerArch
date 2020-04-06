@@ -7,3 +7,9 @@ class RoutePaths {
   static const String Home = '/';
   
 }
+
+  
+class AppConstants{
+static const String USER_TABLE='users';
+static const String DB_NAME='places.db';
+}

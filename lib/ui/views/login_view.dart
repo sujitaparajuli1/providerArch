@@ -1,3 +1,5 @@
+import 'package:archprovider/core/base_widget.dart';
+import 'package:archprovider/core/constants/app_contstants.dart';
 import 'package:archprovider/ui/widgets/login_header.dart';
 import 'package:archprovider/viewmodels/login_view_model.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +10,14 @@ class LoginView extends StatelessWidget {
   final controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<LoginViewModel>.value(
-      value: LoginViewModel(
-        authenticationService: Provider.of(context), 
-      ),
-      child:Consumer<LoginViewModel>(
-        child: LoginHeader(controller: controller,),
-        builder: (BuildContext context,LoginViewModel model,
-        Widget child)
-        {
-
-          return Scaffold(
+  return BaseWidget<LoginViewModel>(
+    model: LoginViewModel(
+      authenticationService:Provider.of(context),
+    ),
+    child: LoginHeader(controller: controller,),
+    builder: (BuildContext context,LoginViewModel model,Widget child)
+    {
+       return Scaffold(
             body: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -27,10 +26,15 @@ class LoginView extends StatelessWidget {
               FlatButton(
                 child: Text("Login"),
                 color: Colors.redAccent,
-                onPressed: (){
+                onPressed: () async{
                   String value = controller.text;
                   int userId =int.tryParse(value);
-                  model.login(userId);
+                 bool sucess= await model.login(userId);
+                 if(sucess){
+                   //todo save the user sucess data in sharedpreference
+                   Navigator.of(context).pushReplacementNamed(RoutePaths.Home);
+                   
+                 }
                 },
                 
 
@@ -38,12 +42,14 @@ class LoginView extends StatelessWidget {
             ],
           ),
           );
-          
-        }
-      
-          
-    ),
+            
+
+    },
     );
+    
+
+         
+      
   }
 }
 
